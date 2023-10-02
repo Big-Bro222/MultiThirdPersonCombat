@@ -197,10 +197,12 @@ namespace BigBro.SandBox.Fusion
         public override void FixedUpdateNetwork()
         {
             if(!GetInput(out _inputData))return;
+            Debug.LogError(_inputData.Move);
             _hasAnimator = TryGetComponent(out _animator);
             //JumpAndGravity();
             //GroundedCheck();
             Move();
+            //MoveTest();
 
             //TODO: Remove the reference example code later
             /*if (GetInput(out NetWorkInputData data))
@@ -210,6 +212,12 @@ namespace BigBro.SandBox.Fusion
             }*/
         }
 
+        private void MoveTest()
+        {
+            Vector3 newMove = new Vector3(_inputData.Move.x,0,0);
+            GetComponent<NetworkCharacterControllerPrototype>().Move(newMove*Runner.DeltaTime);
+        }
+        
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
@@ -268,9 +276,7 @@ namespace BigBro.SandBox.Fusion
 
             // move the player
             _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
-
+                                      new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
             // update animator if using character
             //TODO:Change the style of animation

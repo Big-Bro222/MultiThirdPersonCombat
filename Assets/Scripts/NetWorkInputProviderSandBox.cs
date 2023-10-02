@@ -103,7 +103,6 @@ namespace BigBro.SandBox.Fusion
 
         public void OnInput(NetworkRunner runner, NetworkInput input)
         {
-            Debug.LogError("Input!!!");
             var myInput = new NetWorkInputData();
             myInput.Look = look;
             myInput.Move = move;
