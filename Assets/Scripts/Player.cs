@@ -1,0 +1,24 @@
+using UnityEngine;
+using Fusion;
+
+namespace BigBro
+{
+    public class Player : NetworkBehaviour
+    {
+        private NetworkCharacterControllerPrototype _cc;
+
+        private void Awake()
+        {
+            _cc = GetComponent<NetworkCharacterControllerPrototype>();
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            if (GetInput(out NetWorkInputData data))
+            {
+                data.direction.Normalize();
+                _cc.Move(5*data.direction*Runner.DeltaTime);
+            }
+        }
+    }
+}
