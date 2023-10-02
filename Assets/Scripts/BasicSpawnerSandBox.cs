@@ -5,9 +5,9 @@ using Fusion.Sockets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BigBro
+namespace BigBro.SandBox.Fusion
 {
-  public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+  public class BasicSpawnerSandBox : MonoBehaviour, INetworkRunnerCallbacks
   {
     //TODO: Delete the basic spawner with a more advanced one
     private NetworkRunner _runner;

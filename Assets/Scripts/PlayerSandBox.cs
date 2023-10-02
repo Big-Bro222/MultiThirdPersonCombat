@@ -1,9 +1,9 @@
 using UnityEngine;
 using Fusion;
 
-namespace BigBro
+namespace BigBro.SandBox.Fusion
 {
-    public class Player : NetworkBehaviour
+    public class PlayerSandBox : NetworkBehaviour
     {
         private NetworkCharacterControllerPrototype _cc;
 
