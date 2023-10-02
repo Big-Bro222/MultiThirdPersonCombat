@@ -1,6 +1,7 @@
 using System;
 using Fusion;
 using ThirdPersonShooter;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 #if ENABLE_INPUT_SYSTEM
@@ -92,7 +93,8 @@ namespace BigBro.SandBox.Fusion
         private float _fallTimeoutDelta;
 
         private bool _hasAnimator;
-        private StarterAssetsInputs _input;
+        private NetWorkInputProviderSandBox _input;
+        private NetWorkInputData _inputData;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -137,13 +139,13 @@ namespace BigBro.SandBox.Fusion
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            if (_inputData.Look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _inputData.Look.x * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _inputData.Look.y * deltaTimeMultiplier;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -167,7 +169,7 @@ namespace BigBro.SandBox.Fusion
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
             _hasAnimator = TryGetComponent(out _animator);
-            _input = GetComponent<StarterAssetsInputs>();
+            _input = GetComponent<NetWorkInputProviderSandBox>();
 #if ENABLE_INPUT_SYSTEM
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -194,9 +196,10 @@ namespace BigBro.SandBox.Fusion
 
         public override void FixedUpdateNetwork()
         {
+            if(!GetInput(out _inputData))return;
             _hasAnimator = TryGetComponent(out _animator);
-            JumpAndGravity();
-            GroundedCheck();
+            //JumpAndGravity();
+            //GroundedCheck();
             Move();
 
             //TODO: Remove the reference example code later
@@ -210,19 +213,19 @@ namespace BigBro.SandBox.Fusion
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            var targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            var targetSpeed = _inputData.Buttons.IsSet(MyButtons.Sprint) ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_inputData.Move == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             var currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
 
             var speedOffset = 0.1f;
-            var inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+            var inputMagnitude = _input.analogMovement ? _inputData.Move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -245,7 +248,7 @@ namespace BigBro.SandBox.Fusion
             // if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
-            var inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            var inputDirection = new Vector3(_inputData.Move.x, 0.0f, _inputData.Move.y).normalized;
 
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -261,7 +264,7 @@ namespace BigBro.SandBox.Fusion
             transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
 
 
-            var targetDirection = transform.TransformDirection(new Vector3(_input.move.x, 0, _input.move.y));
+            var targetDirection = transform.TransformDirection(new Vector3(_inputData.Move.x, 0, _inputData.Move.y));
 
             // move the player
             _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
@@ -273,7 +276,7 @@ namespace BigBro.SandBox.Fusion
             //TODO:Change the style of animation
             if (_hasAnimator)
             {
-                if (_input.sprint)
+                if (_inputData.Buttons.IsSet(MyButtons.Sprint))
                     _animator.SetBool(_animIDIsRunning, true);
                 else
                     _animator.SetBool(_animIDIsRunning, false);
@@ -315,7 +318,7 @@ namespace BigBro.SandBox.Fusion
                 if (_verticalVelocity < 0.0f) _verticalVelocity = -2f;
 
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                if (_inputData.Buttons.IsSet(MyButtons.Jump) && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -344,7 +347,7 @@ namespace BigBro.SandBox.Fusion
                 }
 
                 // if we are not grounded, do not jump
-                _input.jump = false;
+                //_input.jump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)

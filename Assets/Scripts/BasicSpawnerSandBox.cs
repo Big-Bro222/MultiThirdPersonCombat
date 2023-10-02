@@ -29,21 +29,6 @@ namespace BigBro.SandBox.Fusion
     
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-      var data = new NetWorkInputData();
-
-      if (Input.GetKey(KeyCode.W))
-        data.direction += Vector3.forward;
-
-      if (Input.GetKey(KeyCode.S))
-        data.direction += Vector3.back;
-
-      if (Input.GetKey(KeyCode.A))
-        data.direction += Vector3.left;
-
-      if (Input.GetKey(KeyCode.D))
-        data.direction += Vector3.right;
-
-      input.Set(data);
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
