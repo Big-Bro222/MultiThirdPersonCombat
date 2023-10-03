@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace BigBro
+namespace BigBro.SandBox.Fusion
 {
-  public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
+  public class BasicSpawnerSandBox : MonoBehaviour, INetworkRunnerCallbacks
   {
     //TODO: Delete the basic spawner with a more advanced one
     private NetworkRunner _runner;
@@ -29,33 +30,26 @@ namespace BigBro
     
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-      var data = new NetWorkInputData();
-
-      if (Input.GetKey(KeyCode.W))
-        data.direction += Vector3.forward;
-
-      if (Input.GetKey(KeyCode.S))
-        data.direction += Vector3.back;
-
-      if (Input.GetKey(KeyCode.A))
-        data.direction += Vector3.left;
-
-      if (Input.GetKey(KeyCode.D))
-        data.direction += Vector3.right;
-
-      input.Set(data);
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
+      NetworkObject networkPlayerObject=null;
       if (runner.IsServer)
       {
         // Create a unique position for the player
         Vector3 spawnPosition = new Vector3((player.RawEncoded%runner.Config.Simulation.DefaultPlayers)*3,1,0);
-        NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+        networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
+        runner.SetPlayerObject(player, networkPlayerObject);
         // Keep track of the player avatars so we can remove it when they disconnect
         _spawnedCharacters.Add(player, networkPlayerObject);
       }
+
+      runner.GetPlayerObject(player).gameObject.name = player.PlayerId.ToString();
+      if (player==runner.LocalPlayer)
+      {
+        //TODO: Do something to mark local player
+      };
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
