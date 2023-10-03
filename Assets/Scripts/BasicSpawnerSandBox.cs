@@ -39,15 +39,16 @@ namespace BigBro.SandBox.Fusion
       {
         // Create a unique position for the player
         Vector3 spawnPosition = new Vector3((player.RawEncoded%runner.Config.Simulation.DefaultPlayers)*3,1,0);
-        
         networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, player);
         runner.SetPlayerObject(player, networkPlayerObject);
         // Keep track of the player avatars so we can remove it when they disconnect
         _spawnedCharacters.Add(player, networkPlayerObject);
       }
+
+      runner.GetPlayerObject(player).gameObject.name = player.PlayerId.ToString();
       if (player==runner.LocalPlayer)
       {
-        runner.GetPlayerObject(player).transform.localScale = Vector3.one * 3;
+        //TODO: Do something to mark local player
       };
     }
 

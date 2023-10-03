@@ -93,7 +93,7 @@ namespace BigBro.SandBox.Fusion
         private float _fallTimeoutDelta;
 
         private bool _hasAnimator;
-        private NetWorkInputProviderSandBox _input;
+        //private NetWorkInputProviderSandBox _input;
         private NetWorkInputData _inputData;
 
         // timeout deltatime
@@ -101,7 +101,7 @@ namespace BigBro.SandBox.Fusion
         private GameObject _mainCamera;
 
 #if ENABLE_INPUT_SYSTEM
-        private PlayerInput _playerInput;
+        //private PlayerInput _playerInput;
 #endif
         private float _rotationVelocity;
 
@@ -117,7 +117,8 @@ namespace BigBro.SandBox.Fusion
             get
             {
 #if ENABLE_INPUT_SYSTEM
-                return _playerInput.currentControlScheme == "KeyboardMouse";
+                //return _playerInput.currentControlScheme == "KeyboardMouse";
+                return true;
 #else
 				return false;
 #endif
@@ -169,9 +170,9 @@ namespace BigBro.SandBox.Fusion
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
             _hasAnimator = TryGetComponent(out _animator);
-            _input = GetComponent<NetWorkInputProviderSandBox>();
+            //_input = GetComponent<NetWorkInputProviderSandBox>();
 #if ENABLE_INPUT_SYSTEM
-            _playerInput = GetComponent<PlayerInput>();
+            //_playerInput = GetComponent<PlayerInput>();
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif
@@ -197,26 +198,12 @@ namespace BigBro.SandBox.Fusion
         public override void FixedUpdateNetwork()
         {
             if(!GetInput(out _inputData))return;
-            Debug.LogError(_inputData.Move);
             _hasAnimator = TryGetComponent(out _animator);
-            //JumpAndGravity();
-            //GroundedCheck();
+            JumpAndGravity();
+            GroundedCheck();
             Move();
-            //MoveTest();
-
-            //TODO: Remove the reference example code later
-            /*if (GetInput(out NetWorkInputData data))
-            {
-                data.direction.Normalize();
-                _cc.Move(5*data.direction*Runner.DeltaTime);
-            }*/
         }
-
-        private void MoveTest()
-        {
-            Vector3 newMove = new Vector3(_inputData.Move.x,0,0);
-            GetComponent<NetworkCharacterControllerPrototype>().Move(newMove*Runner.DeltaTime);
-        }
+        
         
         private void Move()
         {
@@ -233,7 +220,9 @@ namespace BigBro.SandBox.Fusion
             var currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
 
             var speedOffset = 0.1f;
-            var inputMagnitude = _input.analogMovement ? _inputData.Move.magnitude : 1f;
+            //TODO: move the analogMovement parameter to somewhere else
+            //var inputMagnitude = _input.analogMovement ? _inputData.Move.magnitude : 1f;
+            var inputMagnitude =  1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||

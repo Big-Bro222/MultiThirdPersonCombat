@@ -21,7 +21,7 @@ namespace BigBro.SandBox.Fusion
         public bool analogMovement;
 
         [Header("Mouse Cursor Settings")]
-        private bool cursorLocked = true;
+        private bool cursorLocked = false;
         private bool cursorInputForLook = true;
 
         public void OnMove(InputAction.CallbackContext context)
@@ -88,7 +88,7 @@ namespace BigBro.SandBox.Fusion
 
         public void OnEnable(){
             var myNetworkRunner = FindObjectOfType<NetworkRunner>();
-            myNetworkRunner.AddCallbacks( this );
+            myNetworkRunner?.AddCallbacks( this );
         }
 
         public virtual void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
@@ -177,7 +177,7 @@ namespace BigBro.SandBox.Fusion
 
         public void OnDisable(){
             var myNetworkRunner = FindObjectOfType<NetworkRunner>();
-            myNetworkRunner.RemoveCallbacks( this );
+            myNetworkRunner?.RemoveCallbacks( this );
         }
     }
 	
