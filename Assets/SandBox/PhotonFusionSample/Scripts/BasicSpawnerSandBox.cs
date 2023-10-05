@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace BigBro.SandBox.Fusion
+namespace BigBro.SandBox.PhotonFusionSample
 {
   public class BasicSpawnerSandBox : MonoBehaviour, INetworkRunnerCallbacks
   {
