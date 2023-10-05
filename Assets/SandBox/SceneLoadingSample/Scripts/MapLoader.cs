@@ -31,6 +31,11 @@ public class MapLoader : NetworkSceneManagerBase
 		_loadScreen.SetActive(false);
 	}
 
+	public void loadSceneNetwork(SceneRef sceneRef)
+	{
+		Runner.SetActiveScene(sceneRef);
+	}
+	
 	protected override IEnumerator SwitchScene(SceneRef prevScene, SceneRef newScene, FinishedLoadingDelegate finished)
 	{
 		Debug.Log($"Switching Scene from {prevScene} to {newScene}");

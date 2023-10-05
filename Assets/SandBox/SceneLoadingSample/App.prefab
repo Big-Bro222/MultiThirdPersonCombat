@@ -896,6 +896,7 @@ GameObject:
   - component: {fileID: 6274724183888813006}
   - component: {fileID: 6274724183888813007}
   - component: {fileID: 6274724183888813008}
+  - component: {fileID: 4012772901902745092}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -961,3 +962,15 @@ MonoBehaviour:
     sceneAsset: {fileID: 0}
     scenePath: 
   _skipStaging: 0
+--- !u!114 &4012772901902745092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6274724183888813009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22c994e05d8c2e34aae1376959a54b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

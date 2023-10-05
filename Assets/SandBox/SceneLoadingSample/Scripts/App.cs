@@ -38,8 +38,8 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	//[SerializeField] private SessionProps _autoSession = new SessionProps();
 
 	private NetworkRunner _runner;
-	private NetworkSceneManagerBase _loader;
-	private Action<List<SessionInfo>> _onSessionListUpdated;
+	private MapLoader _loader;
+	public event Action<List<SessionInfo>> OnSessionListUpdatedEvent;
 	//private InputData _data;
 	//private Session _session;
 	private string _lobbyId;
@@ -74,85 +74,93 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 		
 		if(_loader==null)
 		{
-			_loader = GetComponent<NetworkSceneManagerBase>();
+			_loader = GetComponent<MapLoader>();
 			DontDestroyOnLoad(gameObject);
 			SceneManager.LoadSceneAsync( _introScene );
 		}
 	}
 	//
-	// private void Connect()
-	// {
-	// 	if (_runner == null)
-	// 	{
-	// 		SetConnectionStatus(ConnectionStatus.Connecting);
-	// 		GameObject go = new GameObject("Session");
-	// 		go.transform.SetParent(transform);
-	//
-	// 		_runner = go.AddComponent<NetworkRunner>();
-	// 		_runner.AddCallbacks(this);
-	// 	}
-	// }
-	//
-	// public void Disconnect()
-	// {
-	// 	if (_runner != null)
-	// 	{
-	// 		SetConnectionStatus(ConnectionStatus.Disconnected);
-	// 		_runner.Shutdown();
-	// 	}
-	// }
-	//
-	// public void JoinSession(SessionInfo info)
-	// {
-	// 	//SessionProps props = new SessionProps(info.Properties);
-	// 	//props.PlayerLimit = info.MaxPlayers;
-	// 	//props.RoomName = info.Name;
-	// 	//StartSession(GameMode.Client, props);
-	// }
-	//
-	// public void CreateSession(SessionProps props)
-	// {
-	// 	//StartSession( GameMode.Host, props, true);
-	// }
+	private void Connect()
+	{
+		if (_runner == null)
+		{
+			SetConnectionStatus(ConnectionStatus.Connecting);
+			// GameObject go = new GameObject("Session");
+			// go.transform.SetParent(transform);
+			_runner = gameObject.AddComponent<NetworkRunner>();
+			_runner.AddCallbacks(this);
+		}
+	}
+	
+	private void Disconnect()
+	{
+		if (_runner != null)
+		{
+			SetConnectionStatus(ConnectionStatus.Disconnected);
+			_runner.Shutdown();
+		}
+	}
+	
+	public void JoinSession(SessionInfo info)
+	{
+		//SessionProps props = new SessionProps(info.Properties);
+		//props.PlayerLimit = info.MaxPlayers;
+		//props.RoomName = info.Name;
+		//StartSession(GameMode.Client, props);
+	}
+	
+	public async void CreateSession(SessionProps props)
+	{
+		await StartSession( GameMode.Host, props, true);
+	}
 
-	// private async void StartSession(GameMode mode, SessionProps props, bool disableClientSessionCreation=true)
-	// {
-	// 	Connect();
-	//
-	// 	SetConnectionStatus(ConnectionStatus.Starting);
-	//
-	// 	Debug.Log($"Starting game with session {props.RoomName}, player limit {props.PlayerLimit}");
-	// 	_runner.ProvideInput = mode != GameMode.Server;
-	// 	StartGameResult result = await _runner.StartGame(new StartGameArgs
-	// 	{
-	// 		GameMode = mode,
-	// 		CustomLobbyName = _lobbyId,
-	// 		SceneManager = _loader,
-	// 		SessionName = props.RoomName,
-	// 		PlayerCount = props.PlayerLimit,
-	// 		SessionProperties = props.Properties,
-	// 		DisableClientSessionCreation = disableClientSessionCreation
-	// 	});
-	// 	if(!result.Ok)
-	// 		SetConnectionStatus(ConnectionStatus.Failed, result.ShutdownReason.ToString());
-	// }
+	private async Task StartSession(GameMode mode, SessionProps props, bool disableClientSessionCreation=true)
+	{
+		Connect();
+	
+		SetConnectionStatus(ConnectionStatus.Starting);
+		Debug.Log($"Starting game with session {props.RoomName}, player limit {props.PlayerLimit}");
+		_runner.ProvideInput = mode != GameMode.Server;
+		StartGameResult result = await _runner.StartGame(new StartGameArgs
+		{
+			GameMode = mode,
+			CustomLobbyName = _lobbyId,
+			SceneManager = _loader,
+			SessionName = props.RoomName,
+			PlayerCount = props.PlayerLimit,
+			SessionProperties = props.Properties,
+			DisableClientSessionCreation = disableClientSessionCreation
+		});
+		if(!result.Ok)
+			SetConnectionStatus(ConnectionStatus.Failed, result.ShutdownReason.ToString());
+		else
+		{
+			//load to new scene
+			_loader.loadSceneNetwork((int)MapIndex.Staging);
+		}
+	}
 
-	// public async Task EnterLobby(string lobbyId, Action<List<SessionInfo>> onSessionListUpdated)
-	// {
-	// 	Connect();
-	//
-	// 	_lobbyId = lobbyId;
-	// 	_onSessionListUpdated = onSessionListUpdated;
-	//
-	// 	SetConnectionStatus(ConnectionStatus.EnteringLobby);
-	// 	var result = await _runner.JoinSessionLobby(SessionLobby.Custom, lobbyId);
-	//
-	// 	if (!result.Ok) {
-	// 		_onSessionListUpdated = null;
-	// 		SetConnectionStatus(ConnectionStatus.Failed);
-	// 		onSessionListUpdated(null);
-	// 	}
-	// }
+	public async Task<bool> EnterLobby(string lobbyId)
+	{
+		Connect();
+		//
+		// _lobbyId = lobbyId;
+		// _onSessionListUpdated = onSessionListUpdated;
+		//
+		SetConnectionStatus(ConnectionStatus.EnteringLobby);
+		 var result = await _runner.JoinSessionLobby(SessionLobby.Custom, lobbyId);
+		//
+		if (!result.Ok) {
+			//_onSessionListUpdated = null;
+			SetConnectionStatus(ConnectionStatus.Failed);
+			//onSessionListUpdated(null);
+		}
+		else
+		{
+			SetConnectionStatus(ConnectionStatus.InLobby);
+		}
+		return result.Ok;
+	}
 
 	// public Session Session
 	// {
@@ -181,19 +189,18 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	// 	}
 	// }
 	//
-	// private void SetConnectionStatus(ConnectionStatus status, string reason="")
-	// {
-	// 	if (ConnectionStatus == status)
-	// 		return;
-	// 	ConnectionStatus = status;
-	//
-	// 	if (!string.IsNullOrWhiteSpace(reason) && reason != "Ok")
-	// 	{
-	// 		_errorBox.Show(status,reason);
-	// 	}
-	// 	
-	// 	Debug.Log($"ConnectionStatus={status} {reason}");
-	// }
+	private void SetConnectionStatus(ConnectionStatus status, string reason="")
+	{
+		if (ConnectionStatus == status) return;
+		ConnectionStatus = status;
+	
+		// if (!string.IsNullOrWhiteSpace(reason) && reason != "Ok")
+		// {
+		// 	_errorBox.Show(status,reason);
+		// }
+		
+		Debug.Log($"ConnectionStatus={status} {reason}");
+	}
 	//
 	// /// <summary>
 	// /// Fusion Event Handlers
@@ -201,21 +208,21 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	//
 	public void OnConnectedToServer(NetworkRunner runner)
 	{
-		// Debug.Log("Connected to server");
-		// SetConnectionStatus(ConnectionStatus.Connected);
+		Debug.Log("Connected to server");
+		SetConnectionStatus(ConnectionStatus.Connected);
 	}
 	
 	public void OnDisconnectedFromServer(NetworkRunner runner)
 	{
-		// Debug.Log("Disconnected from server");
-		// Disconnect();
+		Debug.Log("Disconnected from server");
+		Disconnect();
 	}
 	
 	public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
 	{
-		// Debug.Log($"Connect failed {reason}");
-		// Disconnect();
-		// SetConnectionStatus(ConnectionStatus.Failed, reason.ToString());
+		 Debug.Log($"Connect failed {reason}");
+		 Disconnect();
+		 SetConnectionStatus(ConnectionStatus.Failed, reason.ToString());
 	}
 	
 	public void OnPlayerJoined(NetworkRunner runner, PlayerRef playerRef)
@@ -305,8 +312,7 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	
 	public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
 	{
-		//SetConnectionStatus(ConnectionStatus.InLobby);
-		_onSessionListUpdated?.Invoke(sessionList);
+		OnSessionListUpdatedEvent?.Invoke(sessionList);
 	}
 
 	public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }

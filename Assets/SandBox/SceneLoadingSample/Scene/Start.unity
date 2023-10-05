@@ -199,7 +199,7 @@ PrefabInstance:
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _staging.scenePath
-      value: 
+      value: Assets/SandBox/SceneLoadingSample/Scene/StageScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
@@ -210,7 +210,8 @@ PrefabInstance:
         type: 3}
       propertyPath: _staging.sceneAsset
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 102900000, guid: abc10e5af439bd94aab723e526d28c40,
+        type: 3}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _gameOver.sceneAsset
@@ -239,7 +240,7 @@ PrefabInstance:
     - target: {fileID: 6274724183888813008, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _introScene.scenePath
-      value: Assets/SandBox/SceneLoadingSample/Scene/Introtest.unity
+      value: Assets/SandBox/SceneLoadingSample/Scene/SelectGame.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6274724183888813008, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
