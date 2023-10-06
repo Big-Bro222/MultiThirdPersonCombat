@@ -100,13 +100,29 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 			_runner.Shutdown();
 		}
 	}
+
+
+	public void loadSceneNetwork(SceneRef sceneRef)
+	{
+		_loader.loadSceneNetwork(sceneRef);
+	}
 	
 	public void JoinSession(SessionInfo info)
 	{
-		//SessionProps props = new SessionProps(info.Properties);
-		//props.PlayerLimit = info.MaxPlayers;
-		//props.RoomName = info.Name;
-		//StartSession(GameMode.Client, props);
+		
+		SessionProps props = new SessionProps(info.Properties);
+		props.PlayerLimit = info.MaxPlayers;
+		props.RoomName = info.Name;
+		StartSession(GameMode.Client, props);
+		
+		// Debug.Log("Joining Session");
+		// SessionProps props = new SessionProps();
+		// //props.StartMap = _toggleMap1.isOn ? MapIndex.Map0 : MapIndex.Map1;
+		// //props.PlayMode = _playMode;
+		// props.PlayerLimit = 6;
+		// props.RoomName = "test";
+		// props.AllowLateJoin = true; 
+		// StartSession(GameMode.Client, props);
 	}
 	
 	public async void CreateSession(SessionProps props)
@@ -126,7 +142,7 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 			GameMode = mode,
 			CustomLobbyName = _lobbyId,
 			SceneManager = _loader,
-			SessionName = props.RoomName,
+			SessionName = "test",
 			PlayerCount = props.PlayerLimit,
 			SessionProperties = props.Properties,
 			DisableClientSessionCreation = disableClientSessionCreation
@@ -144,7 +160,7 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	{
 		Connect();
 		//
-		// _lobbyId = lobbyId;
+		_lobbyId = lobbyId;
 		// _onSessionListUpdated = onSessionListUpdated;
 		//
 		SetConnectionStatus(ConnectionStatus.EnteringLobby);

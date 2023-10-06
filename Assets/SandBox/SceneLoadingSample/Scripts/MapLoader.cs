@@ -33,6 +33,7 @@ public class MapLoader : NetworkSceneManagerBase
 
 	public void loadSceneNetwork(SceneRef sceneRef)
 	{
+		Debug.Log("Login");
 		Runner.SetActiveScene(sceneRef);
 	}
 	

@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _gameOver.scenePath
-      value: 
+      value: Assets/SandBox/SceneLoadingSample/Scene/GameScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
@@ -216,7 +216,8 @@ PrefabInstance:
         type: 3}
       propertyPath: _gameOver.sceneAsset
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 102900000, guid: cf54adb54428f1a49b3360e839ceebd9,
+        type: 3}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _maps.Array.data[0].scenePath

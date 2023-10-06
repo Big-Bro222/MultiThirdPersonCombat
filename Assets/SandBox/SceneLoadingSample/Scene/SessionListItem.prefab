@@ -32,7 +32,7 @@ RectTransform:
   m_Children:
   - {fileID: 6224311714677233936}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -59,9 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd693dd4cb508ca478df63f33639e2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: {fileID: 0}
-  _map: {fileID: 0}
-  _players: {fileID: 0}
+  _name: {fileID: 1291002118842490948}
+  _map: {fileID: 3044595981606545910}
+  _players: {fileID: 2033629035470080323}
 --- !u!1 &222447178919226178
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,8 +424,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DefaultNamespace.UI.SessionListItem, Assembly-CSharp
+      - m_Target: {fileID: 6635129573088727342}
+        m_TargetAssemblyTypeName: GameUI.Intro.SessionListItem, Assembly-CSharp
         m_MethodName: OnJoin
         m_Mode: 1
         m_Arguments:
