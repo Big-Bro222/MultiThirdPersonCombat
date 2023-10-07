@@ -52,7 +52,7 @@ public class MapLoader : NetworkSceneManagerBase
 			case MapIndex.GameOver: path = _gameOver; break;
 			default: path = _maps[newScene - (int)MapIndex.Map0]; break;
 		}	
-		yield return SceneManager.LoadSceneAsync(path, LoadSceneMode.Single);
+		yield return SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Single);
 		var loadedScene = SceneManager.GetSceneByPath( path );
 		Debug.Log($"Loaded scene {path}: {loadedScene}");
 		sceneObjects = FindNetworkObjects(loadedScene, disable: false);

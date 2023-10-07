@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BigBro;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
@@ -27,7 +28,7 @@ public enum ConnectionStatus
 public class App : MonoBehaviour, INetworkRunnerCallbacks
 {
 	[SerializeField] private SceneReference _introScene;
-	//[SerializeField] private Player _playerPrefab;
+	[SerializeField] private Player _playerPrefab;
 	//[SerializeField] private Session _sessionPrefab;
 	//[SerializeField] private ErrorBox _errorBox;
 	//[SerializeField] private PlayerSetupPanel _playerSetup;
@@ -243,18 +244,20 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	
 	public void OnPlayerJoined(NetworkRunner runner, PlayerRef playerRef)
 	{
-		// Debug.Log($"Player {playerRef} Joined!");
+		Debug.Log($"Player {playerRef} Joined!");
 		// if ( _session==null && IsSessionOwner)
 		// {
 		// 	Debug.Log("Spawning world");
 		// 	_session = runner.Spawn(_sessionPrefab, Vector3.zero, Quaternion.identity);
 		// }
 		//
-		// if (runner.IsServer || runner.Topology == SimulationConfig.Topologies.Shared && playerRef == runner.LocalPlayer)
-		// {
-		// 	Debug.Log("Spawning player");
-		// 	runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, playerRef, (runner, obj) => runner.SetPlayerObject(playerRef, obj) );
-		// }
+		if (runner.IsServer)
+		{
+			Debug.Log("Spawning player");
+			Player player= runner.Spawn(_playerPrefab, Vector3.zero, Quaternion.identity, playerRef, (runner, obj) => runner.SetPlayerObject(playerRef, obj) );
+			player.Init();
+			player.transform.SetParent(transform);
+		}
 		//
 		// SetConnectionStatus(ConnectionStatus.Started);
 	}

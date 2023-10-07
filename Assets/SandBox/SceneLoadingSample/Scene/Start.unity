@@ -240,6 +240,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6274724183888813008, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
+      propertyPath: _playerPrefab
+      value: 
+      objectReference: {fileID: 5694377205605166341, guid: f87888a745b26be4d9e79d9c06428aa6,
+        type: 3}
+    - target: {fileID: 6274724183888813008, guid: 5bff0832946866341bcce9b75f208b63,
+        type: 3}
       propertyPath: _introScene.scenePath
       value: Assets/SandBox/SceneLoadingSample/Scene/SelectGame.unity
       objectReference: {fileID: 0}

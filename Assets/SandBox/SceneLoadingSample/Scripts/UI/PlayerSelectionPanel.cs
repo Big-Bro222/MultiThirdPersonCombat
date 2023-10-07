@@ -31,7 +31,6 @@ namespace BigBro
 
         private void SceneReadyDel()
         {
-            Debug.LogError("Load");
             _app.loadSceneNetwork((int)MapIndex.GameOver);
         }
     }
