@@ -12,7 +12,7 @@
       "url": "http://34.88.239.191:4873"
     },
     "com.bigbro.unity.uiframework": {
-      "version": "0.0.2",
+      "version": "0.0.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {

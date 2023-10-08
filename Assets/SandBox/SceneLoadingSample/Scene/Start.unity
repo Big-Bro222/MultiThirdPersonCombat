@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _gameOver.scenePath
-      value: Assets/SandBox/SceneLoadingSample/Scene/GameScene.unity
+      value: Assets/SandBox/SceneLoadingSample/Scene/GameOver.unity
       objectReference: {fileID: 0}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
@@ -214,10 +214,20 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
+      propertyPath: _combatMap.scenePath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
+        type: 3}
       propertyPath: _gameOver.sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: cf54adb54428f1a49b3360e839ceebd9,
+      objectReference: {fileID: 102900000, guid: 7dd81d6ce87662043a63095b4cd4003f,
         type: 3}
+    - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
+        type: 3}
+      propertyPath: _combatMap.sceneAsset
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6274724183888813007, guid: 5bff0832946866341bcce9b75f208b63,
         type: 3}
       propertyPath: _maps.Array.data[0].scenePath

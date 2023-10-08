@@ -18,7 +18,7 @@ namespace BigBro
         private UIManager _uiManager;
 
         //TODO: set player limit to related to map
-        private int _playerLimit = 6;
+        //private int _playerLimit = 6;
         //private event Action<List<SessionInfo>> _onSessionListUpdated;
 
         protected override void OnCreate()
@@ -47,7 +47,7 @@ namespace BigBro
             SessionProps props = new SessionProps();
             //props.StartMap = _toggleMap1.isOn ? MapIndex.Map0 : MapIndex.Map1;
             //props.PlayMode = _playMode;
-            props.PlayerLimit = _playerLimit;
+            props.PlayerLimit = _app.CurrentMap.MaxPlayer;
             props.RoomName = "test";
             props.AllowLateJoin = true; 
             _app.CreateSession(props);

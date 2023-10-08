@@ -32,6 +32,8 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 	//[SerializeField] private Session _sessionPrefab;
 	//[SerializeField] private ErrorBox _errorBox;
 	//[SerializeField] private PlayerSetupPanel _playerSetup;
+	private MapConfig _currentMap;
+	public MapConfig CurrentMap => _currentMap;
 
 	[Space(10)]
 	//[SerializeField] private bool _autoConnect;
@@ -51,6 +53,7 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 		return FindObjectOfType<App>();
 	}
 
+	
 	 public ConnectionStatus ConnectionStatus { get; private set; }
 	 public bool IsSessionOwner => _runner != null && (_runner.IsServer);
 	// //public SessionProps AutoSession => _autoSession;
@@ -102,10 +105,14 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 		}
 	}
 
-
-	public void loadSceneNetwork(SceneRef sceneRef)
+	private void SetupCombatMap(SceneReference map)
 	{
-		_loader.loadSceneNetwork(sceneRef);
+		_loader.SetCombatMap(map);
+	}
+	
+	public void  loadSceneNetwork(MapIndex mapIndex)
+	{
+		_loader.loadSceneNetwork(mapIndex);
 	}
 	
 	public void JoinSession(SessionInfo info)
@@ -153,19 +160,20 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 		else
 		{
 			//load to new scene
-			_loader.loadSceneNetwork((int)MapIndex.Staging);
+			loadSceneNetwork((int)MapIndex.Staging);
 		}
 	}
 
-	public async Task<bool> EnterLobby(string lobbyId)
+	public async Task<bool> EnterLobby(MapConfig map)
 	{
 		Connect();
 		//
-		_lobbyId = lobbyId;
+		_lobbyId = map.MapName;
+		_currentMap = map;
 		// _onSessionListUpdated = onSessionListUpdated;
 		//
 		SetConnectionStatus(ConnectionStatus.EnteringLobby);
-		 var result = await _runner.JoinSessionLobby(SessionLobby.Custom, lobbyId);
+		 var result = await _runner.JoinSessionLobby(SessionLobby.Custom, _lobbyId);
 		//
 		if (!result.Ok) {
 			//_onSessionListUpdated = null;
@@ -175,6 +183,7 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 		else
 		{
 			SetConnectionStatus(ConnectionStatus.InLobby);
+			SetupCombatMap(map.CombatScene);
 		}
 		return result.Ok;
 	}

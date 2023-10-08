@@ -16,9 +16,9 @@ namespace BigBro
             _uiManager = UIManager.Instance;
         }
 
-        public async void EnterLobby(string lobbyId)
+        public async void EnterLobby(MapConfig map)
         {
-            bool result = await _app.EnterLobby(lobbyId);;
+            bool result = await _app.EnterLobby(map);;
             if (result)
             {
                 _uiManager.OpenPanel("LobbyUIPanel");
