@@ -22,7 +22,7 @@ namespace BigBro
                      _playerInfoListItemsDic.Add(player,item);
                      RectTransform rt = (RectTransform) item.transform;
                      rt.SetParent(transform);
-                     item.Setup(player.PlayerData);
+                     item.Setup(player.PlayerData,player.IsLocalPlayer);
                  });
             }
         }
@@ -42,7 +42,7 @@ namespace BigBro
                     _playerInfoListItemsDic.Add(player,item);
                     RectTransform rt = (RectTransform) item.transform;
                     rt.SetParent(transform);
-                    item.Setup(player.PlayerData);
+                    item.Setup(player.PlayerData,player.IsLocalPlayer);
                 });
             }
             else

@@ -9,6 +9,7 @@ namespace BigBro
         [SerializeField]
         private PlayerData _localPlayerData;
         public PlayerData PlayerData => _localPlayerData;
+        public bool IsLocalPlayer => _isLocalPlayer;
         private bool _isLocalPlayer = false;
 
         public void Init(PlayerData localPlayerData,bool isLocalPlayer)
@@ -23,7 +24,16 @@ namespace BigBro
         
         private void PlayerDataUpdated()
         {
-            
+            if (_localPlayerData.ShouldNetworkUpdate)
+            {
+                //RPC calls
+            }
+        }
+
+        [Rpc]
+        private void UpdatePlayerData()
+        {
+            Debug.LogError("If this is the local player,do nothing, else should update the local player data");
         }
         
 
