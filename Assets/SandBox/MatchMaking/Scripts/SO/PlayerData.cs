@@ -14,20 +14,26 @@ namespace BigBro
     public class PlayerData : ScriptableObject
     {
         //Value that expose to the editor should be public fields
+        //Should Update the NetworkPlayerData class as well for network purpose
         public string Name;
         public Color PlayerOutfit;
         public Ability Ability;
         
-        public Action OnDataChange;
+        public Action OnDataChanged;
         public bool ShouldNetworkUpdate => _shouldNetworkUpdate;
         private bool _shouldNetworkUpdate = true;
 
+        public void ChangeData()
+        {
+            OnDataChanged.Invoke();
+        }
+        
         public void Reset()
         {
             Name = "";
             PlayerOutfit = Color.black;
             Ability = Ability.Attacker;
-            OnDataChange = null;
+            OnDataChanged = null;
         }
 
         public void SetChangeNetworkAvaliable(bool isAvaliable)
@@ -36,7 +42,7 @@ namespace BigBro
             if (isAvaliable)
             {
                 //if set avaliable call onDataChange for once in case the change is not solid
-                OnDataChange?.Invoke();
+                OnDataChanged?.Invoke();
             }
         }
 
@@ -116,16 +122,17 @@ namespace BigBro
             root.Add(nameField);
             root.Add(outfitField);
             root.Add(AbilityField);
+            
+            //For editor changes only
             root.TrackSerializedObjectValue(serializedObject, CheckForWarnings);
 
             return root;
         }
-
-        // Check the current values of the serialized properties to either display or hide the warnings.
+        
         void CheckForWarnings(SerializedObject serializedObject)
         {
             var player = serializedObject.targetObject as PlayerData;
-            player.OnDataChange?.Invoke();
+            player.OnDataChanged?.Invoke();
         }
     }
 

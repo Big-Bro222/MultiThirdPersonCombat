@@ -50,6 +50,7 @@ namespace BigBro
             _data.Name = _name.text;
             /*_data.Ability = _abiltiy;*/
             _data.PlayerOutfit = _outfit.color;
+            _data.ChangeData();
         }
         
         protected override void OnClose()

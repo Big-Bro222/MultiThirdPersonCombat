@@ -4,38 +4,54 @@ using UnityEngine;
 
 namespace BigBro
 {
-    public class Player : NetworkBehaviour , IPlayer
+    public class Player : NetworkBehaviour, IPlayer
     {
-        [SerializeField]
-        private PlayerData _localPlayerData;
+        [SerializeField] private PlayerData _localPlayerData;
         public PlayerData PlayerData => _localPlayerData;
+        [Networked] private NetworkPlayerData _networkPlayerData { get; set; }
+
+        [Networked] public ref NetworkPlayerData _networkPlayerDataRef => ref MakeRef<NetworkPlayerData>();
+
         public bool IsLocalPlayer => _isLocalPlayer;
         private bool _isLocalPlayer = false;
 
-        public void Init(PlayerData localPlayerData,bool isLocalPlayer)
+        public void Init(PlayerData localPlayerData, bool isLocalPlayer)
         {
-                _isLocalPlayer = isLocalPlayer;
-                _localPlayerData = localPlayerData;
-                //do something with the local player
-                _localPlayerData.OnDataChange += PlayerDataUpdated;
+            _isLocalPlayer = isLocalPlayer;
+            _localPlayerData = localPlayerData;
+            //do something with the local player
+            _localPlayerData.OnDataChanged += PlayerDataUpdated;
         }
 
-        
-        
+
         private void PlayerDataUpdated()
         {
             if (_localPlayerData.ShouldNetworkUpdate)
             {
+                //transfer the player data to networkplayerdata
+                _networkPlayerDataRef.Name = _localPlayerData.Name;
+                _networkPlayerDataRef.PlayerOutfit = _localPlayerData.PlayerOutfit;
+                _networkPlayerDataRef.Ability = _localPlayerData.Ability;
                 //RPC calls
+                RPC_UpdatePlayerData(_networkPlayerDataRef);
             }
         }
 
-        [Rpc]
-        private void UpdatePlayerData()
-        {
-            Debug.LogError("If this is the local player,do nothing, else should update the local player data");
-        }
         
+        
+
+        //TODO: Fix the wierd bug when the local client data get update
+        [Rpc(RpcSources.InputAuthority, RpcTargets.All, InvokeLocal = false)]
+        public void RPC_UpdatePlayerData(NetworkPlayerData networkPlayerData)
+        {
+            //This work only do on remote player
+            //transfer networkPlayerData to _localPlayerData
+            _localPlayerData.Name = networkPlayerData.Name.ToString();
+            _localPlayerData.PlayerOutfit = networkPlayerData.PlayerOutfit;
+            _localPlayerData.Ability = networkPlayerData.Ability;
+            _localPlayerData.ChangeData();
+        }
+
 
         public void GenerateCharacter()
         {
@@ -51,7 +67,7 @@ namespace BigBro
         {
             if (_localPlayerData != null)
             {
-                _localPlayerData.OnDataChange -= PlayerDataUpdated;
+                _localPlayerData.OnDataChanged -= PlayerDataUpdated;
             }
         }
     }

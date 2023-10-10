@@ -299,7 +299,6 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
                 if (plyObj)
                 {
                     bool success = plyObj.TryGetComponent<Player>(out Player ply);
-                    Debug.LogError(success);
                     if (success)
                     {
                         action(ply, plyRef);
@@ -335,8 +334,9 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
             {
                 //Init a player
                 ply.transform.SetParent(transform);
+                ply.gameObject.name = plyRef.PlayerId.ToString();
                 PlayerData playerDataSo = GetPlayerDataSO();
-                ply.Init(playerDataSo,playerRef==_runner.LocalPlayer);
+                ply.Init(playerDataSo,plyRef==_runner.LocalPlayer);
                 _playerDataDics.Add(plyRef, playerDataSo);
                 OnActivePlayerListUpdatedEvent?.Invoke(ply, true);
                 // SetConnectionStatus(ConnectionStatus.Started);
@@ -346,6 +346,7 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
         {
             //Init a player
             player.transform.SetParent(transform);
+            player.gameObject.name = playerRef.PlayerId.ToString();
             PlayerData playerDataSo = GetPlayerDataSO();
             player.Init(playerDataSo,playerRef==_runner.LocalPlayer);
             _playerDataDics.Add(playerRef, playerDataSo);

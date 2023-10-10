@@ -9,11 +9,11 @@ namespace BigBro
         [SerializeField] private Image _outfit;
         [SerializeField] private TextMeshProUGUI _ability;
         [SerializeField] private TextMeshProUGUI _name;
-        private PlayerData _playerData;
+        [SerializeField] private PlayerData _playerData;
         public void Setup(PlayerData playerData)
         {
             _playerData = playerData;
-            _playerData.OnDataChange += UpdateUI;
+            _playerData.OnDataChanged += UpdateUI;
             UpdateUI();
         }
 
@@ -26,7 +26,7 @@ namespace BigBro
 
         public void Dispose()
         {
-            _playerData.OnDataChange -= UpdateUI;
+            _playerData.OnDataChanged -= UpdateUI;
             _playerData = null;
         }
         

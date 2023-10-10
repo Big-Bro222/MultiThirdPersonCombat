@@ -19,7 +19,7 @@ namespace BigBro
         public void Setup(PlayerData data, bool isLocalPlayer)
         {
             _playerData = data;
-            _playerData.OnDataChange+=UpdateUI;
+            _playerData.OnDataChanged+=UpdateUI;
             UpdateUI();
             if (isLocalPlayer)
             {
@@ -50,7 +50,7 @@ namespace BigBro
         public override void OnRecycled()
         {
             base.OnRecycled();
-            _playerData.OnDataChange-=UpdateUI;
+            _playerData.OnDataChanged-=UpdateUI;
             _playerData = null;
             _setUpBtn.gameObject.SetActive(false);
             _setUpBtn.onClick.RemoveAllListeners();
