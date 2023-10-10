@@ -5,7 +5,7 @@ namespace BigBro
 {
     public interface IPlayer
     {
-        void Init();
+        void Init(PlayerData localPlayerData,bool isLocalPlayer);
         void GenerateCharacter();
         void Clear();
 

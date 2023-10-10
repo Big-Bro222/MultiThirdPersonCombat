@@ -10,6 +10,7 @@ namespace BigBro
         private App _app;
         private UIManager _uiManager;
         [SerializeField] private Button selectBtn;
+        [SerializeField] private PlayerInfoList _playerInfoList;
         protected override void OnCreate()
         {
             base.OnCreate();
@@ -20,16 +21,20 @@ namespace BigBro
         protected override void OnOpen()
         {
             base.OnOpen();
-            selectBtn.onClick.AddListener(SceneReadyDel);
+            _playerInfoList.Init(_app.GetActivePlayers());
+            _app.OnActivePlayerListUpdatedEvent += _playerInfoList.UpdateInfo;
+            selectBtn.onClick.AddListener(SceneReady);
         }
         
         protected override void OnClose()
         {
             base.OnClose();
-            selectBtn.onClick.RemoveListener(SceneReadyDel);
+            _playerInfoList.Clear();
+            _app.OnActivePlayerListUpdatedEvent -= _playerInfoList.UpdateInfo;
+            selectBtn.onClick.RemoveListener(SceneReady);
         }
 
-        private void SceneReadyDel()
+        private void SceneReady()
         {
             _app.loadSceneNetwork(MapIndex.Map);
         }
