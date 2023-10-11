@@ -1,11 +1,14 @@
 using System;
 using Fusion;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BigBro
 {
     public class Player : NetworkBehaviour, IPlayer
     {
+        [FormerlySerializedAs("_CharacterPrefab")] [SerializeField] private Character  _characterPrefab;
+        private Character _character;
         [SerializeField] private PlayerData _localPlayerData;
         public PlayerData PlayerData => _localPlayerData;
         [Networked] private NetworkPlayerData _networkPlayerData { get; set; }
@@ -53,14 +56,15 @@ namespace BigBro
         }
 
 
-        public void GenerateCharacter()
+        public void SpawnCharacter()
         {
-            //if in game scene, spawn a character
+            _character=Runner.Spawn(_characterPrefab);
         }
 
-        public void ClearCharacter()
+        public void DespawnCharacter()
         {
             //if out of a game scene, despawn a character
+            Runner.Despawn(_character.Object);
         }
 
         public void Clear()

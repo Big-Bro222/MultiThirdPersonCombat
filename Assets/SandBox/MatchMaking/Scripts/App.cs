@@ -101,8 +101,6 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
         if (_runner == null)
         {
             SetConnectionStatus(ConnectionStatus.Connecting);
-            // GameObject go = new GameObject("Session");
-            // go.transform.SetParent(transform);
             _runner = gameObject.AddComponent<NetworkRunner>();
             _runner.AddCallbacks(this);
         }
@@ -134,15 +132,6 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
         props.PlayerLimit = info.MaxPlayers;
         props.RoomName = info.Name;
         StartSession(GameMode.Client, props);
-
-        // Debug.Log("Joining Session");
-        // SessionProps props = new SessionProps();
-        // //props.StartMap = _toggleMap1.isOn ? MapIndex.Map0 : MapIndex.Map1;
-        // //props.PlayMode = _playMode;
-        // props.PlayerLimit = 6;
-        // props.RoomName = "test";
-        // props.AllowLateJoin = true; 
-        // StartSession(GameMode.Client, props);
     }
 
     public async void CreateSession(SessionProps props)
@@ -203,31 +192,9 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
         return result.Ok;
     }
 
-    // public Session Session
-    // {
-    // 	get => _session;
-    // 	set { _session = value; _session.transform.SetParent(_runner.transform); }
-    // }
-
     // public Player GetPlayer()
     // {
     // 	return _runner?.GetPlayerObject(_runner.LocalPlayer)?.GetComponent<Player>();
-    // }
-    //
-    // public void ForEachPlayer(Action<Player> action)
-    // {
-    // 	if (_runner)
-    // 	{
-    // 		foreach (PlayerRef plyRef in _runner.ActivePlayers)
-    // 		{
-    // 			NetworkObject plyObj = _runner.GetPlayerObject(plyRef);
-    // 			if (plyObj)
-    // 			{
-    // 				Player ply = plyObj.GetComponent<Player>();
-    // 				action(ply);
-    // 			}
-    // 		}
-    // 	}
     // }
     //
     private void SetConnectionStatus(ConnectionStatus status, string reason = "")
@@ -377,11 +344,16 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
         playerDataSo.Reset();
         _localPlayerDataPresets.Add(playerDataSo);
         _playerDataDics.Remove(playerRef);
+
+        
         NetworkObject networkObject = runner.GetPlayerObject(playerRef);
         Player player = networkObject.GetComponent<Player>();
-        //Despawn the character first
+        if (runner.IsServer)
+        {
+            player.DespawnCharacter();
+            runner.Despawn(networkObject);
+        }
         OnActivePlayerListUpdatedEvent?.Invoke(player, false);
-        runner.Despawn(networkObject);
     }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason reason)
@@ -442,11 +414,21 @@ public class App : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnSceneLoadDone(NetworkRunner runner)
     {
-
+        if (_currentMapIndex == MapIndex.Map)
+       {
+           if (_runner.IsServer)
+           {
+               ForEachPlayer((ply,plyRef) =>
+               {
+                   ply.SpawnCharacter();
+               });
+           }
+       }
     }
 
     public void OnSceneLoadStart(NetworkRunner runner)
     {
+
     }
-    
+
 }
