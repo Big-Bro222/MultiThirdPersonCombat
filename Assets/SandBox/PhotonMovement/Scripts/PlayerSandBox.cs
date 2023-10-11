@@ -1,13 +1,9 @@
-using System;
 using Fusion;
-using ThirdPersonShooter;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 #if ENABLE_INPUT_SYSTEM
 #endif
 
-namespace BigBro.SandBox.Fusion
+namespace BigBro.SandBox.PhotonFusionSample
 {
     /// <summary>
     ///     Sand Box player controller for handling inputs

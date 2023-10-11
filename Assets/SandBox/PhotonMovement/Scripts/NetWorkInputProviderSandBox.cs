@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-#endif
 
-namespace BigBro.SandBox.Fusion
+namespace BigBro.SandBox.PhotonFusionSample
 {
     public class NetWorkInputProviderSandBox : MonoBehaviour,INetworkRunnerCallbacks
     {

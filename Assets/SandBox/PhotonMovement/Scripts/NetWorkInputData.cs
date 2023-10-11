@@ -1,7 +1,7 @@
-using UnityEngine;
 using Fusion;
+using UnityEngine;
 
-namespace BigBro
+namespace BigBro.SandBox.PhotonFusionSample
 {
     //TODO: find a better way to represent button name
     enum MyButtons {
