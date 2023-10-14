@@ -242,7 +242,6 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -291,7 +290,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 82.09764
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -316,8 +315,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.21091552, y: -0.545433, z: 0.14411007, w: -0.79827935}
+  m_LocalPosition: {x: -16.20051, y: 9.878874, z: -6.3207035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -384,40 +383,6 @@ MonoBehaviour:
   Components:
   - {fileID: 330585544}
   _guid: 6cb6b129-ca2b-4c55-
---- !u!114 &330585549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,8 +511,8 @@ GameObject:
   m_Component:
   - component: {fileID: 904520238}
   - component: {fileID: 904520239}
-  - component: {fileID: 904520241}
   - component: {fileID: 904520240}
+  - component: {fileID: 904520241}
   m_Layer: 0
   m_Name: Basic
   m_TagString: Untagged
@@ -583,7 +548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerPrefab:
-    RawGuidValue: bb87beef2935e934fb2ab9111f6cb293
+    RawGuidValue: 5e5a8cde54b3ace49b330abb6835bb7c
+  _virtualCam: {fileID: 0}
 --- !u!114 &904520240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -613,8 +579,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 904520241}
-        m_TargetAssemblyTypeName: BigBro.SandBox.Fusion.NetWorkInputProviderSandBox,
-          Assembly-CSharp
+        m_TargetAssemblyTypeName: InputSetter, BigBro.URPPacakgeTemplate.Runtime.ThirdPersonShooter
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -630,8 +595,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 904520241}
-        m_TargetAssemblyTypeName: BigBro.SandBox.Fusion.NetWorkInputProviderSandBox,
-          Assembly-CSharp
+        m_TargetAssemblyTypeName: InputSetter, BigBro.URPPacakgeTemplate.Runtime.ThirdPersonShooter
         m_MethodName: OnLook
         m_Mode: 0
         m_Arguments:
@@ -647,8 +611,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 904520241}
-        m_TargetAssemblyTypeName: BigBro.SandBox.Fusion.NetWorkInputProviderSandBox,
-          Assembly-CSharp
+        m_TargetAssemblyTypeName: InputSetter, BigBro.URPPacakgeTemplate.Runtime.ThirdPersonShooter
         m_MethodName: OnJump
         m_Mode: 0
         m_Arguments:
@@ -664,8 +627,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 904520241}
-        m_TargetAssemblyTypeName: BigBro.SandBox.Fusion.NetWorkInputProviderSandBox,
-          Assembly-CSharp
+        m_TargetAssemblyTypeName: InputSetter, BigBro.URPPacakgeTemplate.Runtime.ThirdPersonShooter
         m_MethodName: OnSprint
         m_Mode: 0
         m_Arguments:
@@ -696,11 +658,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 904520237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85a7c60532ee56643b066074531bb530, type: 3}
+  m_Script: {fileID: 11500000, guid: 6906188e47dfae84985243c12d6e133d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: {x: 0, y: 0}
-  look: {x: 0, y: 0}
-  jump: 0
-  sprint: 0
-  analogMovement: 1
+  _inputProvider: {fileID: 11400000, guid: 1c725292dc00b564e927ec95c2f2e46d, type: 2}

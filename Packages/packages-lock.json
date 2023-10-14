@@ -1,16 +1,5 @@
 {
   "dependencies": {
-    "com.bigbro.unity.thirdpersoncontroller": {
-      "version": "0.1.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.textmeshpro": "3.0.6",
-        "com.unity.inputsystem": "1.4.4",
-        "com.unity.cinemachine": "2.8.9"
-      },
-      "url": "http://34.88.239.191:4873"
-    },
     "com.bigbro.unity.uiframework": {
       "version": "0.0.6",
       "depth": 0,
@@ -30,8 +19,8 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.cinemachine": {
-      "version": "2.9.5",
-      "depth": 1,
+      "version": "2.9.7",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.test-framework": "1.1.31"
@@ -79,7 +68,7 @@
     },
     "com.unity.inputsystem": {
       "version": "1.5.1",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0"

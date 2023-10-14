@@ -3,7 +3,7 @@
     "TypeId": "NetworkProjectConfig",
     "PeerMode": 0,
     "PhysicsEngine": 0,
-    "ServerPhysicsMode": 0,
+    "ServerPhysicsMode": 1,
     "UseLagCompensation": true,
     "LagCompensation": {
         "HitboxBufferSize": 12,
@@ -31,7 +31,7 @@
             "a": 0.5
         }
     },
-    "SceneLoadSpawnMode": 0,
+    "SceneLoadSpawnMode": 1,
     "DeltaCompressor": 0,
     "InvokeRenderInBatchMode": true,
     "MaxNetworkedObjectCount": 8192,
