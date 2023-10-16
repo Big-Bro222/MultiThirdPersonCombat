@@ -1778,7 +1778,7 @@ namespace Fusion.KCC
 			bool wasFixed = _isFixed;
 
 			_isFixed = true;
-
+			
 			Move(_fixedData);
 
 			_isFixed = wasFixed;
