@@ -934,6 +934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowHierarchyWindowOverlay: 1
+  PostLoadDelayFrames: 1
   _loadScreen: {fileID: 6274724182146606746}
   _staging:
     sceneAsset: {fileID: 0}
@@ -941,10 +942,8 @@ MonoBehaviour:
   _gameOver:
     sceneAsset: {fileID: 0}
     scenePath: 
-  _maps:
-  - sceneAsset: {fileID: 0}
-    scenePath: 
-  - sceneAsset: {fileID: 0}
+  _combatMap:
+    sceneAsset: {fileID: 0}
     scenePath: 
 --- !u!114 &6274724183888813008
 MonoBehaviour:
@@ -961,6 +960,9 @@ MonoBehaviour:
   _introScene:
     sceneAsset: {fileID: 0}
     scenePath: 
+  _playerPrefab: {fileID: 5694377205605166341, guid: f87888a745b26be4d9e79d9c06428aa6,
+    type: 3}
+  _localPlayerDataPresets: []
   _skipStaging: 0
 --- !u!114 &4012772901902745092
 MonoBehaviour:

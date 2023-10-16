@@ -10,8 +10,8 @@ namespace BigBro
 {
     public class Player : NetworkBehaviour, IPlayer
     {
-        [FormerlySerializedAs("_CharacterPrefab")] [SerializeField] private CharacterBase  _characterPrefab;
-        private CharacterBase _character;
+        [SerializeField] private NetworkObject  _characterPrefab;
+        private NetworkObject _character;
         [SerializeField] private PlayerData _localPlayerData;
         public PlayerData PlayerData => _localPlayerData;
         [Networked] private NetworkPlayerData _networkPlayerData { get; set; }
@@ -68,7 +68,7 @@ namespace BigBro
         public void DespawnCharacter()
         {
             //if out of a game scene, despawn a character
-            Runner.Despawn(_character.Object);
+            Runner.Despawn(_character);
         }
 
         public void Clear()
