@@ -529,6 +529,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 143651a0-f09b-46ae-acf0-410706ed7d82
     m_ActionName: Car/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27358f68-6f97-4449-83ab-79591ba572ca
+    m_ActionName: Player/Dash[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -546,10 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4197ebc13924f7c4c985a2e2a55576cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: {x: 0, y: 0}
-  look: {x: 0, y: 0}
-  jump: 0
-  sprint: 0
   analogMovement: 0
   _characterInputProvider: {fileID: 11400000, guid: 98ede80101409c346ba13e40f6d3a32d,
     type: 2}

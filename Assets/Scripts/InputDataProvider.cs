@@ -37,5 +37,10 @@ namespace BigBro
             var value = context.ReadValueAsButton();
             _characterInputProvider.sprint = value;
         }
+
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            var value = context.ReadValueAsButton();
+        }
     }
 }

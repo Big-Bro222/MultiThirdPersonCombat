@@ -1278,8 +1278,8 @@ GameObject:
   - component: {fileID: -3105454504297001178}
   - component: {fileID: -4390695984317641710}
   - component: {fileID: -697748819261389398}
-  - component: {fileID: 1507585135945773778}
   - component: {fileID: 2534245545235761115}
+  - component: {fileID: 7899925286517477603}
   m_Layer: 8
   m_Name: PlayerCustomePrototype
   m_TagString: Player
@@ -1331,8 +1331,8 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 7895316412308170978}
   - {fileID: -4390695984317641710}
-  - {fileID: 1507585135945773778}
   - {fileID: 2534245545235761115}
+  - {fileID: 7899925286517477603}
   SimulationBehaviours: []
 --- !u!114 &7895316412308170978
 MonoBehaviour:
@@ -1463,28 +1463,6 @@ MonoBehaviour:
   _body: {fileID: 0}
   _leftHand: {fileID: 0}
   _rightHand: {fileID: 0}
---- !u!114 &1507585135945773778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4448719782783240513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a14519a60537af4a8d646828526c431, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WordOffset: 0
-  WordCount: 0
-  _interpolationDataSource: 0
-  _SpeedMultiplier: 1
-  _cameraPivot: {fileID: 8830544667712956449}
-  _cameraHandle: {fileID: 2118725605662944946}
-  _maxCameraAngle: 75
-  _areaOfInterestRadius: 50
-  _jumpImpulse: {x: 0, y: 6, z: 0}
-  _dashProcessor: {fileID: 1012778539262163743}
 --- !u!114 &2534245545235761115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1511,6 +1489,28 @@ MonoBehaviour:
   _logMissingInputs: 1
   _characterInputProvider: {fileID: 11400000, guid: 98ede80101409c346ba13e40f6d3a32d,
     type: 2}
+--- !u!114 &7899925286517477603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448719782783240513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a14519a60537af4a8d646828526c431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WordOffset: 0
+  WordCount: 0
+  _interpolationDataSource: 0
+  _SpeedMultiplier: 1
+  _cameraPivot: {fileID: 8830544667712956449}
+  _cameraHandle: {fileID: 2118725605662944946}
+  _maxCameraAngle: 75
+  _areaOfInterestRadius: 50
+  _jumpImpulse: {x: 0, y: 6, z: 0}
+  _dashProcessor: {fileID: 1012778539262163743}
 --- !u!1 &4572642173107189387
 GameObject:
   m_ObjectHideFlags: 0

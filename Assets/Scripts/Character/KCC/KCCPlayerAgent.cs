@@ -12,7 +12,7 @@ namespace BigBro
 	/// </summary>
 	[OrderBefore(typeof(KCC))]
 	[OrderAfter(typeof(Player))]
-	public sealed class SimplePlayer : Example.Player
+	public sealed class KCCPlayerAgent : Example.Player
 	{
 		private KCCPlayerInputHandler _playerInput;
 		// NetworkBehaviour INTERFACE
@@ -25,7 +25,6 @@ namespace BigBro
 		public override sealed void FixedUpdateNetwork()
 		{
 			base.FixedUpdateNetwork();
-
 			// For following lines, we should use Input.FixedInput only. This property holds input for fixed updates.
 
 			// Clamp input look rotation delta

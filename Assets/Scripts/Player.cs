@@ -1,5 +1,3 @@
-using System;
-using BigBro.Character;
 using BigBro.SO;
 using Fusion;
 using Unity.Mathematics;

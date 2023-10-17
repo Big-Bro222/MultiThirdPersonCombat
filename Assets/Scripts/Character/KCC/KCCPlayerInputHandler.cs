@@ -964,7 +964,7 @@ namespace BigBro
 
             if (Runner.Stage != default && Object.IsProxy == true)
             {
-                throw new InvalidOperationException("Fixed input is available only on State & Input authority!");
+                //throw new InvalidOperationException("Fixed input is available only on State & Input authority!");
             }
         }
 
