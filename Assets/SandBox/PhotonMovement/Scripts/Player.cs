@@ -182,7 +182,7 @@ namespace Example
 			_visual  = gameObject.GetComponent<PlayerVisual>();
 			_culling = gameObject.GetComponent<NetworkCulling>();
 
-			_culling.Updated = OnCullingUpdated;
+			//_culling.Updated = OnCullingUpdated;
 		}
 
 		private void Update()

@@ -1,22 +1,28 @@
-namespace Example
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+using Example;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR;
+using Fusion;
+using Fusion.KCC;
+
+using XRInputDevice  = UnityEngine.XR.InputDevice;
+using XRCommonUsages = UnityEngine.XR.CommonUsages;
+
+/// <summary>
+/// Tracks player input for fixed and render updates.
+/// </summary>
+//[OrderBefore(typeof(NetworkCulling), typeof(Player), typeof(VRPlayer))]
+
+namespace BigBro
 {
-	using System;
-	using UnityEngine;
-	using UnityEngine.InputSystem;
-	using UnityEngine.XR;
-	using Fusion;
-	using Fusion.KCC;
-
-	using XRInputDevice  = UnityEngine.XR.InputDevice;
-	using XRCommonUsages = UnityEngine.XR.CommonUsages;
-
-	/// <summary>
-	/// Tracks player input for fixed and render updates.
-	/// </summary>
-	//[OrderBefore(typeof(NetworkCulling), typeof(Player), typeof(VRPlayer))]
-	[OrderBefore(typeof(NetworkCulling), typeof(Player))]
-	public sealed class PlayerInput : NetworkBehaviour, IBeforeUpdate, IBeforeAllTicks, IBeforeTick
-	{
+    [OrderBefore(typeof(NetworkCulling), typeof(Example.Player))]
+    public class KCCPlayerInputHandler : NetworkBehaviour, IBeforeUpdate, IBeforeAllTicks, IBeforeTick
+    {
+        
 		// PUBLIC MEMBERS
 
 		/// <summary>
@@ -69,7 +75,7 @@ namespace Example
 
 		// We need to store last known input to compare current input against (to track actions activation/deactivation). It is also used if an input for current frame is lost.
 		// This is not needed on proxies, only input authority is registered to nameof(PlayerInput) interest group.
-		[Networked(nameof(PlayerInput))]
+		[Networked(nameof(KCCPlayerInputHandler))]
 		private GameplayInput _lastKnownInput { get; set; }
 
 		private GameplayInput _fixedInput;
@@ -272,7 +278,7 @@ namespace Example
 			if (Object.HasStateAuthority == true)
 			{
 				// Only state and input authority works with input and access _lastFixedInput.
-				Object.SetInterestGroup(Object.InputAuthority, nameof(PlayerInput), true);
+				Object.SetInterestGroup(Object.InputAuthority, nameof(KCCPlayerInputHandler), true);
 			}
 
 			if (Object.HasInputAuthority == true)
@@ -631,13 +637,6 @@ namespace Example
 				_renderInput.Jump   = keyboard.spaceKey.isPressed;
 				_renderInput.Dash   = keyboard.tabKey.isPressed;
 				_renderInput.Sprint = keyboard.leftShiftKey.isPressed;
-
-				if (Object.HasInputAuthority == true)
-				{
-					// Here we can use KeyControl.wasPressedThisFrame / Input.GetKeyDown() because it is not part of input structure and we send actions through RPC.
-					if (keyboard.numpadPlusKey.wasPressedThisFrame  == true) { GetComponent<Player>().ToggleSpeedRPC(1);  }
-					if (keyboard.numpadMinusKey.wasPressedThisFrame == true) { GetComponent<Player>().ToggleSpeedRPC(-1); }
-				}
 			}
 
 			_renderInput.MoveDirection     = moveDirection;
@@ -949,5 +948,5 @@ namespace Example
 				LookRotationDelta = lookRotationDelta;
 			}
 		}
-	}
+    }
 }
