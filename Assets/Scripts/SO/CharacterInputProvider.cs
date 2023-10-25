@@ -12,6 +12,9 @@ namespace BigBro
         public Vector2 look;
         public bool jump;
         public bool sprint;
+        public bool dash;
+        public bool fire;
+        public bool aim;
    
         [Header("Movement Settings")]
         public bool analogMovement;

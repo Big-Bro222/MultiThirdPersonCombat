@@ -1,10 +1,8 @@
 using UnityEngine;
 using System;
 using Example;
-//using UnityEngine.InputSystem;
 using Fusion;
 using Fusion.KCC;
-using UnityEngine.InputSystem;
 using XRInputDevice = UnityEngine.XR.InputDevice;
 using XRCommonUsages = UnityEngine.XR.CommonUsages;
 
@@ -620,21 +618,19 @@ namespace BigBro
             lookRotationDelta =
                 ProcessLookRotationDelta(new Vector2(-mouseDelta.y, mouseDelta.x), _standaloneLookSensitivity);
 
-            Mouse mouse = Mouse.current;
-            _renderInput.LMB = mouse.leftButton.isPressed;
-            _renderInput.RMB = mouse.rightButton.isPressed;
-            _renderInput.MMB = mouse.middleButton.isPressed;
+            //Mouse mouse = Mouse.current;
+            _renderInput.Aim = _characterInputProvider.aim;
+            _renderInput.Fire = _characterInputProvider.fire;
+            //_renderInput.MMB = mouse.middleButton.isPressed;
 
 
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard != null)
-            {
-                if (keyboard.mKey.isPressed == true && keyboard.leftCtrlKey.isPressed == true &&
-                    keyboard.leftShiftKey.isPressed == true)
-                {
-                    // Simulate application pause/resume.
-                    ActivateIgnoreInputWindow();
-                }
+            //Keyboard keyboard = Keyboard.current;
+            // if (keyboard.mKey.isPressed == true && keyboard.leftCtrlKey.isPressed == true &&
+            //     keyboard.leftShiftKey.isPressed == true)
+            // {
+            //     // Simulate application pause/resume.
+            //     ActivateIgnoreInputWindow();
+            // }
 
                 moveDirection = _characterInputProvider.move;
 
@@ -644,9 +640,9 @@ namespace BigBro
                 }
 
                 _renderInput.Jump = _characterInputProvider.jump;
-                _renderInput.Dash = keyboard.tabKey.isPressed;
+                _renderInput.Dash = _characterInputProvider.dash;
                 _renderInput.Sprint = _characterInputProvider.sprint;
-            }
+            
 
             _renderInput.MoveDirection = moveDirection;
             _renderInput.LookRotationDelta = lookRotationDelta;

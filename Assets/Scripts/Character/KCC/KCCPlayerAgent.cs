@@ -66,14 +66,14 @@ namespace BigBro
 				KCC.AddModifier(DashProcessor);
 			}
 
-			if (_playerInput.WasActivated(EGameplayInputAction.LMB) == true)
+			if (_playerInput.WasActivated(EGameplayInputAction.Fire) == true)
 			{
-				// Left mouse button action
+				//Debug.LogError("Fire!");
 			}
 
-			if (_playerInput.WasActivated(EGameplayInputAction.RMB) == true)
+			if (_playerInput.WasActivated(EGameplayInputAction.Aim) == true)
 			{
-				// Right mouse button action
+				//Debug.LogError("Aim!");
 			}
 
 			if (_playerInput.WasActivated(EGameplayInputAction.MMB) == true)
