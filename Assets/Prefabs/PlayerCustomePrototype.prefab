@@ -1280,6 +1280,7 @@ GameObject:
   - component: {fileID: -697748819261389398}
   - component: {fileID: 2534245545235761115}
   - component: {fileID: 7899925286517477603}
+  - component: {fileID: 9024548428627971371}
   m_Layer: 8
   m_Name: PlayerCustomePrototype
   m_TagString: Player
@@ -1333,6 +1334,7 @@ MonoBehaviour:
   - {fileID: -4390695984317641710}
   - {fileID: 2534245545235761115}
   - {fileID: 7899925286517477603}
+  - {fileID: 9024548428627971371}
   SimulationBehaviours: []
 --- !u!114 &7895316412308170978
 MonoBehaviour:
@@ -1511,6 +1513,21 @@ MonoBehaviour:
   _areaOfInterestRadius: 50
   _jumpImpulse: {x: 0, y: 6, z: 0}
   _dashProcessor: {fileID: 1012778539262163743}
+--- !u!114 &9024548428627971371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448719782783240513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c90543ad52fd704e8edbd863c547ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WordOffset: 0
+  WordCount: 0
+  _interpolationDataSource: 0
 --- !u!1 &4572642173107189387
 GameObject:
   m_ObjectHideFlags: 0
