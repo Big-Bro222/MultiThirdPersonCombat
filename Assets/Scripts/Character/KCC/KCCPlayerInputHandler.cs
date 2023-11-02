@@ -285,8 +285,6 @@ namespace BigBro
             _lastKnownInput = default;
             _baseFixedInput = default;
             _baseRenderInput = default;
-            // _moveTouch          = default;
-            // _lookTouch          = default;
             _repeatTime = default;
             _ignoreTime = default;
             _ignoreExtension = default;
@@ -296,9 +294,6 @@ namespace BigBro
 
             // Wait few seconds before the connection is stable to start tracking missing inputs.
             _logMissingInputFromTick = Runner.Simulation.Tick + Runner.Config.Simulation.TickRate * 4;
-
-            // _inputTouches.TouchStarted  = OnTouchStarted;
-            // _inputTouches.TouchFinished = OnTouchFinished;
 
             if (Object.HasStateAuthority == true)
             {
@@ -324,9 +319,6 @@ namespace BigBro
 
         public override void Despawned(NetworkRunner runner, bool hasState)
         {
-            // _inputTouches.TouchStarted  = null;
-            // _inputTouches.TouchFinished = null;
-
             _frameRecords.Clear();
 
             if (runner == null)
@@ -415,7 +407,6 @@ namespace BigBro
             _cachedMoveDirectionSize += Time.unscaledDeltaTime;
 
             ProcessStandaloneInput();
-            //ProcessGamepadInput();
         }
 
         void IBeforeAllTicks.BeforeAllTicks(bool resimulation, int tickCount)
@@ -623,26 +614,17 @@ namespace BigBro
             _renderInput.Fire = _characterInputProvider.fire;
             //_renderInput.MMB = mouse.middleButton.isPressed;
 
+            moveDirection = _characterInputProvider.move;
 
-            //Keyboard keyboard = Keyboard.current;
-            // if (keyboard.mKey.isPressed == true && keyboard.leftCtrlKey.isPressed == true &&
-            //     keyboard.leftShiftKey.isPressed == true)
-            // {
-            //     // Simulate application pause/resume.
-            //     ActivateIgnoreInputWindow();
-            // }
+            if (moveDirection.IsZero() == false)
+            {
+                moveDirection.Normalize();
+            }
 
-                moveDirection = _characterInputProvider.move;
+            _renderInput.Jump = _characterInputProvider.jump;
+            _renderInput.Dash = _characterInputProvider.dash;
+            _renderInput.Sprint = _characterInputProvider.sprint;
 
-                if (moveDirection.IsZero() == false)
-                {
-                    moveDirection.Normalize();
-                }
-
-                _renderInput.Jump = _characterInputProvider.jump;
-                _renderInput.Dash = _characterInputProvider.dash;
-                _renderInput.Sprint = _characterInputProvider.sprint;
-            
 
             _renderInput.MoveDirection = moveDirection;
             _renderInput.LookRotationDelta = lookRotationDelta;

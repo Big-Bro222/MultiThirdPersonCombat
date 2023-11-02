@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Example;
@@ -12,7 +13,7 @@ namespace BigBro
 	/// </summary>
 	[OrderBefore(typeof(KCC))]
 	[OrderAfter(typeof(Player))]
-	public sealed class KCCPlayerAgent : Example.Player
+	public sealed class KCCPlayerLocomotionAgent : Example.Player
 	{
 		private KCCPlayerInputHandler _playerInput;
 		// NetworkBehaviour INTERFACE
@@ -39,7 +40,7 @@ namespace BigBro
 
 			KCC.SetInputDirection(inputDirection);
 
-			if (_playerInput.WasActivated(EGameplayInputAction.Jump) == true)
+			if (_playerInput.WasActivated(EGameplayInputAction.Jump))
 			{
 				// By default the character jumps forward in facing direction
 				Quaternion jumpRotation = KCC.FixedData.TransformRotation;

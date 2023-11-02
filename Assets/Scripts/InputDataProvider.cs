@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 namespace BigBro
 {
+    /// <summary>
+    /// Set up local current InputData
+    /// </summary>
     public class InputDataProvider : MonoBehaviour
     {
         [Header("Movement Settings")] public bool analogMovement;
