@@ -1,0 +1,13 @@
+Photon Fusion FSM Addon - Release History
+
+Version 1.2.0
+- CHANGE: EForceBehaviour replaced by simple bool that tells whether the state change is explicit deactivation (= switching state off)
+- Improved logging
+- Added check for collected child machines
+- Added extension method for simpler adding of transitions
+
+Version 1.1.0
+- Fixed handling of networked properties for more than one child state machine
+
+Version 1.0.0
+- Initial release

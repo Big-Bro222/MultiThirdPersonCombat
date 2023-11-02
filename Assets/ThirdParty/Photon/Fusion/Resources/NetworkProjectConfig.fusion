@@ -6,8 +6,8 @@
     "ServerPhysicsMode": 0,
     "UseLagCompensation": true,
     "LagCompensation": {
-        "HitboxBufferSize": 12,
-        "HitboxCapacity": 512,
+        "HitboxBufferSize": 20,
+        "HitboxCapacity": 4096,
         "ExpansionFactor": 0.20000000298023225,
         "Optimize": false,
         "DebugBroadphase": false,
@@ -32,8 +32,8 @@
         }
     },
     "SceneLoadSpawnMode": 0,
-    "DeltaCompressor": 0,
-    "InvokeRenderInBatchMode": true,
+    "DeltaCompressor": 1,
+    "InvokeRenderInBatchMode": false,
     "MaxNetworkedObjectCount": 8192,
     "NetworkIdIsObjectName": false,
     "HideNetworkObjectInactivityGuard": false,
@@ -44,8 +44,8 @@
         "TickRate": 60,
         "MaxPrediction": 60,
         "DefaultPlayers": 10,
-        "ReplicationMode": 0,
-        "ObjectInterest": false,
+        "ReplicationMode": 1,
+        "ObjectInterest": true,
         "ServerPacketInterval": 1,
         "ClientPacketInterval": 1
     },

@@ -72,6 +72,6 @@ MonoBehaviour:
   WordOffset: 0
   WordCount: 0
   _interpolationDataSource: 0
-  _characterPrefab: {fileID: 6600623294925730653, guid: bb87beef2935e934fb2ab9111f6cb293,
+  _characterPrefab: {fileID: 985298671794219344, guid: 8b01a460ecf4e9849b870cb98158c47b,
     type: 3}
   _localPlayerData: {fileID: 0}
